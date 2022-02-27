@@ -1,0 +1,44 @@
+CREATE DATABASE "curso-jsp"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;   
+       
+       
+
+CREATE TABLE public.model_login
+(
+  login character varying(200) NOT NULL,
+  senha character varying(205) NOT NULL,
+  id integer NOT NULL DEFAULT nextval('model_login_id_seq'::regclass),
+  nome character varying(300) NOT NULL,
+  email character varying(300) NOT NULL,
+  CONSTRAINT model_login_pkey PRIMARY KEY (id),
+  CONSTRAINT login_unique UNIQUE (login)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.model_login
+  OWNER TO postgres;
+  
+  
+  
+  INSERT INTO public.model_login(
+            login, senha)
+    VALUES ('admin','admin');
+    
+----------------------------------------------------------------------------
+ alter table model_login add column useradmin boolean not null default false; 
+-----------------------------------------------------------------------------
+
+alter table model_login add column usuario_id bigint not null default 1;
+
+update model_login set usuario_id = 5 where id > 10;   
+
+-----------------------------------------------------------------------------
+ 
+ 
+    
