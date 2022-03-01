@@ -48,7 +48,7 @@
 										<div class="card-block">
 										<h4 class="sub-title">Cadastro usuario</h4>
 
-	<form class="form-material" method="post" action="<%= request.getContextPath()%>/SerletUsuarioController" id="formUser">
+	<form class="form-material" method="post" enctype="multpart/form-data" action="<%= request.getContextPath()%>/SerletUsuarioController" id="formUser">
 							<input type="hidden" name="acao" id="acao" value ="">
 															
 	<div class="form-group form-default form-static-label">
@@ -57,6 +57,16 @@
 	 <span class="form-bar"></span> <label
 	 class="float-label">ID:</label>
 	</div>
+	
+	<div class="form-group form-default input-group mb-4">
+	<div class="input-group-prepend">
+	<img alt="Imagem User" src="" width="70px">
+	</div>
+	<input type="file" class="form-control-file" style="margin-top: 15px; margin-left: 5px;">
+	</div>
+	
+	
+	
 	<div class="form-group form-default form-static-label">
 	<input type="text" name="nome" id="nome" autocomplete="off" value="${modelLogin.nome}"
 	class="form-control" required="required"> <span
