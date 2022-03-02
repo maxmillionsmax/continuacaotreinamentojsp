@@ -48,7 +48,7 @@
 										<div class="card-block">
 										<h4 class="sub-title">Cadastro usuario</h4>
 
-	<form class="form-material" method="post" enctype="multpart/form-data" action="<%= request.getContextPath()%>/SerletUsuarioController" id="formUser">
+	<form class="form-material" method="post" enctype="multipart/form-data" action="<%= request.getContextPath()%>/SerletUsuarioController" id="formUser">
 							<input type="hidden" name="acao" id="acao" value ="">
 															
 	<div class="form-group form-default form-static-label">
@@ -60,9 +60,9 @@
 	
 	<div class="form-group form-default input-group mb-4">
 	<div class="input-group-prepend">
-	<img alt="Imagem User" src="" width="70px">
+	<img alt="Imagem User" id="fotoembase64" src="" width = "70px">
 	</div>
-	<input type="file" class="form-control-file" style="margin-top: 15px; margin-left: 5px;">
+	<input type="file" id="fileFoto" name="fileFoto" accept="image/*" onchange="visualizarImg('fotoembase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 5px;">
 	</div>
 	
 	
@@ -207,6 +207,7 @@
 	                                                                                                                                                   <!-- Required Jquery -->
 <jsp:include page="javascriptfile.jsp"></jsp:include>
 
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -252,6 +253,23 @@
 </div>
 
 <script type="text/javascript">
+
+function visualizarImg(fotoembase64, filefoto) {
+			
+	var preview = document.getElementById(fotoembase64);
+	var fileUser = document.getElementById(filefoto).files[0];
+	var reader = new FileReader();
+	
+	reader.onloadend = function (){
+		preview.src = reader.result;
+	};
+	
+	if(fileUser){
+		reader.readAsDataURL(fileUser);
+	}else {
+		preview.src = '';
+	}
+}
 
 function verEditar(id){
 

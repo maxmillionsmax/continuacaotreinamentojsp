@@ -3,6 +3,10 @@ package servlets;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DAOUsuarioRepository;
@@ -12,6 +16,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.ModelLogin;
 
 @MultipartConfig
@@ -108,6 +113,7 @@ public class SerletUsuarioController extends ServletGenericUtil {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+	
 		try {
 
 			String msg = "Operação realizada com sucesso!";
@@ -129,6 +135,12 @@ public class SerletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			
+			if (ServletFileUpload.isMultipartContent(request)) {
+				Part part = request.getPart("fileFoto");
+				byte[] foto = IOUtils.toByteArray(part.getInputStream());
+				String imagemBase64 = new Base64().encodeBase64String(foto);
+			}
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				msg = "Já existe usuario com este login, informe outro login";
