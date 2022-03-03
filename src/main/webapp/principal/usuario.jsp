@@ -48,7 +48,7 @@
 										<div class="card-block">
 										<h4 class="sub-title">Cadastro usuario</h4>
 
-	<form class="form-material" method="post" enctype="multipart/form-data" action="<%= request.getContextPath()%>/SerletUsuarioController" id="formUser">
+	<form class="form-material" method="post" enctype="multipart/form-data" action="<%= request.getContextPath()%>/ServletUsuarioController" id="formUser">
 							<input type="hidden" name="acao" id="acao" value ="">
 															
 	<div class="form-group form-default form-static-label">
@@ -61,11 +61,14 @@
 	<div class="form-group form-default input-group mb-4">
 	<div class="input-group-prepend">
 	
+	<c:if test="${modelLogin.fotouser != '' && modelLogin.fotouser != null}">
+	<a href="<%= request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+	<img alt="Imagem User" id="fotoembase64" src="${modelLogin.fotouser}" width = "70px">
+	</a>
+	</c:if>
+
 	<c:if test="${modelLogin.fotouser == '' || modelLogin.fotouser == null}">
 	<img alt="Imagem User" id="fotoembase64" src="assets/images/login.png" width = "70px">
-	</c:if>
-	<c:if test="${modelLogin.fotouser != '' && modelLogin.fotouser != null}">
-	<img alt="Imagem User" id="fotoembase64" src="${modelLogin.fotouser}" width = "70px">
 	</c:if>
 	
 	</div>
@@ -190,7 +193,7 @@
 		    	<tr>
 				<td><c:out value="${ml.id}"></c:out></td>
 				<td><c:out value="${ml.nome}"></c:out></td>
-				<td><a href="<%= request.getContextPath()%>/SerletUsuarioController?acao=buscarEditar&id=${ml.id}" class="btn btn-success waves-effect waves-light">ver</a></td>
+				<td><a href="<%= request.getContextPath()%>/ServletUsuarioController?acao=buscarEditar&id=${ml.id}" class="btn btn-success waves-effect waves-light">ver</a></td>
 		    	</tr>
 		    </c:forEach>
 		  </tbody>

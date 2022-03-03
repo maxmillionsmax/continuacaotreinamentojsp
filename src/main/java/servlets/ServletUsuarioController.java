@@ -20,15 +20,15 @@ import jakarta.servlet.http.Part;
 import model.ModelLogin;
 
 @MultipartConfig
-@WebServlet(urlPatterns = { "/SerletUsuarioController"})
+@WebServlet(urlPatterns = { "/ServletUsuarioController"})
 
-public class SerletUsuarioController extends ServletGenericUtil {
+public class ServletUsuarioController extends ServletGenericUtil {
 	
 	private static final long serialVersionUID = 1L;
 
 	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 
-	public SerletUsuarioController() {
+	public ServletUsuarioController() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -91,6 +91,19 @@ public class SerletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("msg", "Usuario carregados");
 				request.setAttribute("modelLogins", modelLogins);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
+			}
+			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("downloadFoto")) {
+				String idUser = request.getParameter("id");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(idUser,super.getUserLogado(request));
+				if (modelLogin.getFotouser() != null && !modelLogin.getFotouser().isEmpty()) {
+					
+					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
+					response.getOutputStream().write(new Base64().decodeBase64(modelLogin.getFotouser().split("\\,")[1]));
+				
+				}
+
 
 			}
 
