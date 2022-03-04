@@ -1,5 +1,5 @@
 <%@page import="model.ModelLogin"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
@@ -126,6 +126,43 @@
     <span class="form-bar"></span>
     <label class="float-label">Perfil:</label>
 	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input onblur="pesquisaCep();" type="text" name="cep" id="cep" value="${modelLogin.cep}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">cep:</label>
+	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input type="text" name="logradouro" id="logradouro" value="${modelLogin.logradouro}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">logradouro:</label>
+	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input type="text" name="bairro" id="bairro" value="${modelLogin.bairro}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">Bairro:</label>
+	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input type="text" name="localidade" id="localidade" value="${modelLogin.localidade}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">Cidade:</label>
+	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input type="text" name="uf" id="uf" value="${modelLogin.uf}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">Estado:</label>
+	</div>
+	
+	<div class="form-group form-default form-static-label">
+	<input type="text" name="numero" id="numero" value="${modelLogin.numero}"
+	class="form-control" required="required"> <span
+	class="form-bar"></span> <label class="float-label">numero:</label>
+	</div>	
+	
 	
 	<div class="form-group form-default form-static-label">
 	<input type="text" name="login" id="login" value="${modelLogin.login}"
@@ -263,6 +300,24 @@
 </div>
 
 <script type="text/javascript">
+
+function pesquisaCep() {
+	var cep = $("#cep").val();
+	
+	 $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+         if (!("erro" in dados)) {
+             //Atualiza os campos com os valores da consulta.
+             $("#cep").val(dados.cep);
+             $("#logradouro").val(dados.logradouro);
+             $("#bairro").val(dados.bairro);
+             $("#localidade").val(dados.localidade);
+             $("#uf").val(dados.uf);
+         } //end if.		
+		
+	});
+}
+
 
 function visualizarImg(fotoembase64, filefoto) {
 			
