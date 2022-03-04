@@ -104,9 +104,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					
 					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getExtensaofotouser());
 					response.getOutputStream().write(new Base64().decodeBase64(modelLogin.getFotouser().split("\\,")[1]));
-				
 				}
-
 
 			}
 			
