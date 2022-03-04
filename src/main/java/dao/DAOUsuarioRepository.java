@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +94,7 @@ public class DAOUsuarioRepository {
 		return this.consultarUsuario(objeto.getLogin(),userLogado);
 
 	}
+	
 
 	
 	public List<ModelLogin> consultaUsuarioListPaginada(Long userLogado, Integer offset) throws Exception {
@@ -119,9 +119,29 @@ public class DAOUsuarioRepository {
 			retorno.add(modelLogin);
 
 		}
-
+		
 		return retorno;
-
+	}
+	
+	public int totalPagina(Long userLogado) throws Exception {
+		
+		String sql = "select count(1) from model_login where usuario_id = "+userLogado;
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultado = statement.executeQuery();
+		
+		Double cadastros = resultado.getDouble("total");
+		
+		Double porpagina =5.0;
+		
+		Double pagina = cadastros / porpagina;
+		
+		Double resto = pagina % 2 ;
+		
+		if (resto > 0) {
+			pagina++;
+		}	
+		return pagina.intValue();
 	}
 	
 	
