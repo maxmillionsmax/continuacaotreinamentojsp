@@ -21,7 +21,7 @@ public class DAOUsuarioRepository {
 
 		if (objeto.isNovo()) {
 
-			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero, datanascimento)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			statement.setString(1, objeto.getLogin());
@@ -37,6 +37,7 @@ public class DAOUsuarioRepository {
 			statement.setString(11, objeto.getLocalidade());
 			statement.setString(12, objeto.getUf());
 			statement.setString(13, objeto.getNumero());
+			statement.setDate(14, objeto.getDataNascimento());
 			
 
 			statement.execute();
@@ -57,7 +58,7 @@ public class DAOUsuarioRepository {
 			
 		} else {
 
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? ,perfil = ?, sexo = ?, cep = ?, logradouro = ?, bairro = ?, localidade = ?, uf = ?, numero = ? WHERE id = " + objeto.getId() + ";";
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=? ,perfil = ?, sexo = ?, cep = ?, logradouro = ?, bairro = ?, localidade = ?, uf = ?, numero = ?, datanascimento =? WHERE id = " + objeto.getId() + ";";
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			statement.setString(1, objeto.getLogin());
@@ -72,6 +73,7 @@ public class DAOUsuarioRepository {
 			statement.setString(10, objeto.getLocalidade());
 			statement.setString(11, objeto.getUf());
 			statement.setString(12, objeto.getNumero());
+			statement.setDate(13, objeto.getDataNascimento());
 
 			statement.executeUpdate();
 			connection.commit();

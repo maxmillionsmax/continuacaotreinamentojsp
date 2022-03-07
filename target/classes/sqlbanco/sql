@@ -66,4 +66,7 @@ WITH (
 );
 ALTER TABLE public.telefone
   OWNER TO postgres;
+  -----------------------------------------------------------------------------------
+  
+  ALTER TABLE public.model_login ADD COLUMN datanascimento date;
  
