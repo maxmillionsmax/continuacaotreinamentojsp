@@ -91,10 +91,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				String id = request.getParameter("id");
 				
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(id, super.getUserLogado(request));
+
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList(super.getUserLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 				
-				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(id, super.getUserLogado(request));
 
 				request.setAttribute("msg", "Usuario em edição");
 				request.setAttribute("modelLogin", modelLogin);
@@ -176,7 +177,9 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String uf = request.getParameter("uf");
 			String numero = request.getParameter("numero");
 			String dataNascimento = request.getParameter("dataNascimento");
+			String rendaMensal = request.getParameter("rendamensal");
 			
+			rendaMensal = rendaMensal.split("\\ ")[1].replaceAll("\\.", "").replaceAll("\\,", ".");
 
 			ModelLogin modelLogin = new ModelLogin();
 
@@ -195,6 +198,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setUf(uf);
 			modelLogin.setNumero(numero);
 			modelLogin.setDataNascimento(new Date(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento).getTime()));
+			modelLogin.setRendamensal(Double.parseDouble(rendaMensal));
+			
 			
 			if (ServletFileUpload.isMultipartContent(request)) {
 				

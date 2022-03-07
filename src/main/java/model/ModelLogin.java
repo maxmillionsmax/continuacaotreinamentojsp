@@ -23,6 +23,15 @@ public class ModelLogin implements Serializable{
 	private String localidade;
 	private String uf;
 	private String numero;
+	private Double rendamensal;
+	
+	public void setRendamensal(Double rendamensal) {
+		this.rendamensal = rendamensal;
+	}
+	
+	public Double getRendamensal() {
+		return rendamensal;
+	}
 	
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
