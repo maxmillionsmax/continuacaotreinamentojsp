@@ -196,8 +196,8 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setBairro(bairro);
 			modelLogin.setLocalidade(localidade);
 			modelLogin.setUf(uf);
-			modelLogin.setNumero(numero);
-			modelLogin.setDataNascimento(new Date(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento).getTime()));
+			modelLogin.setNumero(numero);			
+			modelLogin.setDataNascimento(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento))));
 			modelLogin.setRendamensal(Double.parseDouble(rendaMensal));
 			
 			
