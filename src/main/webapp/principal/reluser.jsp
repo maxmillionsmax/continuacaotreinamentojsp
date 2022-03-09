@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 
 
@@ -64,10 +66,28 @@
 		     <button type="submit" class="btn btn-primary">Imprimir Relatorio</button>
 		   </div>
 		 </div>
-				
-					
+      </form>
 
-</form>
+      <div style="height: 300px; overflow: scroll;">
+		<table class="table table-light" id="tabelaResultadoview">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">Nome:</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <c:forEach items="${listaUser}" var="ml">
+		    	<tr>
+				<td><c:out value="${ml.id}"></c:out></td>
+				<td><c:out value="${ml.nome}"></c:out></td>
+		    	</tr>
+		    </c:forEach>
+		  </tbody>
+		</table>		
+	</div>  
+
+
 </div>
 </div>
 </div>
