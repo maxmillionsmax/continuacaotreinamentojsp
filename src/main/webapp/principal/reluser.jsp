@@ -82,6 +82,13 @@
 				<td><c:out value="${ml.id}"></c:out></td>
 				<td><c:out value="${ml.nome}"></c:out></td>
 		    	</tr>
+		    <c:forEach items="${ml.telefones}" var="fone">
+		    	<tr>
+		    	<td/>
+		    	<td style="font-size: 10px;">Telefone: <c:out value="${fone.numero}"></c:out></td>
+		    	</tr>
+		    </c:forEach>	
+		    	
 		    </c:forEach>
 		  </tbody>
 		</table>		
