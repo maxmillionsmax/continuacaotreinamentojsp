@@ -1,10 +1,13 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -156,7 +159,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				request.setAttribute("dataFinal", dataFinal);
 				request.getRequestDispatcher("principal/reluser.jsp").forward(request, response);
 						
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatotioPDF")) {
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatotioPDF")){
 				
 				String dataInicial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
@@ -173,7 +176,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					
 				}
 
-				byte[] relatorio = new ReportUtil().geraRelatoriPDF(modelLogins, "rel-user",request.getServletContext());
+				
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				params.put("PARAM_SUB_REPORT", request.getServletContext().getRealPath("relatorio") + File.separator);
+				
+				byte[] relatorio = new ReportUtil().geraRelatoriPDF(modelLogins, "rel-user-jsp",params, request.getServletContext());
 				
 				response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
 				response.getOutputStream().write(relatorio);

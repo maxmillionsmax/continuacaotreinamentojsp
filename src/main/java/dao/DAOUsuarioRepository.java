@@ -188,7 +188,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where usuario_id = " + userLogado;
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 
 		ResultSet resultado = statement.executeQuery();
@@ -203,6 +203,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setPerfil(resultado.getString("perfil"));
 			modelLogin.setSexo(resultado.getString("sexo"));
 			modelLogin.setDataNascimento(resultado.getDate("datanascimento"));
+			
 			modelLogin.setTelefones(this.listFone(modelLogin.getId()));
 
 			retorno.add(modelLogin);
@@ -217,7 +218,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where usuario_id = " + userLogado + " and datanascimento >= ? and datanascimento <= ? ";
+		String sql = "select * from model_login where useradmin is false usuario_id = " + userLogado + " and datanascimento >= ? and datanascimento <= ? ";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setDate(1, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataInicial))));
 		statement.setDate(2, Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataFinal))));
