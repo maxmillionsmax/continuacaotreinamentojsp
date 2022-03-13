@@ -122,7 +122,6 @@ function gerarGrafico() {
 				  options: {}
 				}
 		  );
-	
 }
 
 
