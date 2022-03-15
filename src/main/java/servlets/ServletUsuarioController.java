@@ -7,21 +7,21 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beandto.BeanDtoGraficoSalarioUser;
 import dao.DAOUsuarioRepository;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
 import model.ModelLogin;
 import util.ReportUtil;
 
@@ -289,7 +289,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					.format(new SimpleDateFormat("dd/mm/yyyy").parse(dataNascimento))));
 			modelLogin.setRendamensal(Double.parseDouble(rendaMensal));
 
-			if (ServletFileUpload.isMultipartContent(request)) {
+			if (request.getPart("fileFoto")!=null) {
 
 				Part part = request.getPart("fileFoto");
 
