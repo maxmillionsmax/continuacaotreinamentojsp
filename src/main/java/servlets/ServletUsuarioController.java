@@ -37,6 +37,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 	public ServletUsuarioController() {
 	}
 
+	@SuppressWarnings("static-access")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -201,27 +202,26 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 				if (dataInicial == null || dataInicial.isEmpty() && dataFinal == null || dataFinal.isEmpty()) {
 
-					BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = daoUsuarioRepository.
-							montarGraficoMediaSalario(super.getUserLogado(request));
-					
+					BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = daoUsuarioRepository
+							.montarGraficoMediaSalario(super.getUserLogado(request));
+
 					ObjectMapper mapper = new ObjectMapper();
-					
+
 					String json = mapper.writeValueAsString(beanDtoGraficoSalarioUser);
-					
+
 					response.getWriter().write(json);
 
 				} else {
-					
-					BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = daoUsuarioRepository.
-							montarGraficoMediaSalario(super.getUserLogado(request),dataInicial,dataFinal);
-					
+
+					BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = daoUsuarioRepository
+							.montarGraficoMediaSalario(super.getUserLogado(request), dataInicial, dataFinal);
+
 					ObjectMapper mapper = new ObjectMapper();
-					
+
 					String json = mapper.writeValueAsString(beanDtoGraficoSalarioUser);
-					
+
 					response.getWriter().write(json);
 
-					
 				}
 
 			}
@@ -296,6 +296,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				if (part.getSize() > 0) {
 
 					byte[] foto = IOUtils.toByteArray(part.getInputStream());
+					@SuppressWarnings("static-access")
 					String imagemBase64 = "data:image/" + part.getContentType().split("\\/")[1] + ";base64,"
 							+ new Base64().encodeBase64String(foto);
 
